@@ -1,0 +1,18 @@
+{
+  "name": "waga",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "package": "asar pack YoutubeTutorial-win32-x64/YoutubeTutorial.app/Contents/Resources/app YoutubeTutorial-win32-x64/YoutubeTutorial.app/Contents/Resources/app.asar",
+    "build": "electron-packager . YoutubeTutorial --overwrite"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "asar": "^0.13.0",
+    "electron": "1.7.8",
+    "electron-packager": "^9.1.0"
+  }
+}

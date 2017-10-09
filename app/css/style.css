@@ -1,0 +1,26 @@
+textarea{
+    width: 100%;
+    height: 800px;
+    background-color: #000000;
+    color: #00cc00;
+    font-family: monospace, sans-serif;
+    letter-spacing: 1px;
+    word-spacing: 6px;
+}
+
+textarea.hidden{
+    display:none;
+}
+
+textarea::-moz-selection,
+textarea::selection {
+    background: white;
+}
+
+button{
+    margin: 10px 0 0 20px;
+}
+
+input{
+    margin: 10px 0 0 20px;
+}
