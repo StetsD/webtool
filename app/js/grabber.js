@@ -10,7 +10,10 @@ const GLOBAL = remote.getGlobal('apps');
 
 let $editor = $('.js-grab-editor'),
     $urlGrabber = $('[name="grabber-val"]'),
-    $tableRes = $('.js-table-res');
+    $tableRes = $('.js-table-res'),
+    $btnSave = $('.js-save-temp'),
+    $btnRunGrab = $('.js-run-brab'),
+    $btnGoToMain = $('.js-back-main');
 
 
 function tryOg(arr){
@@ -30,17 +33,29 @@ function pickContent(str){
     return null;
 }
 
-$('.js-back-main').on('click', ()=>{
+$btnGoToMain.on('click', ()=>{
     main.openWindow();
 });
 
-$('.js-run-brab').on('click', ()=>{
+$btnSave.on('click', ()=>{
+    dialog.showSaveDialog({title: 'index.html', filters: '.html', defaultPath: __dirname}, file => {
+        const FILE = path.parse(file);
+        let {name, ext} = FILE;
+        fs.writeFile(file, $editor.val(), 'utf8', (err)=>{
+            if(err) throw err;
+            console.log('success')
+        });
+    });
+});
+
+$btnRunGrab.on('click', ()=>{
     let val = $urlGrabber.val();
 
     val && req(val, (err, res, body) => {
         if(err) throw err;
 
         $editor.val(body).removeClass('hidden');
+        $btnSave.removeClass('hidden');
 
         let summ = body.match(/./gi).length,
             summWithoutSpace = body.match(/\S/gi).length,

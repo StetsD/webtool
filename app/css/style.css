@@ -8,7 +8,7 @@ textarea{
     word-spacing: 6px;
 }
 
-textarea.hidden{
+.hidden{
     display:none;
 }
 
