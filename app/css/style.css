@@ -9,7 +9,7 @@ textarea{
 }
 
 .hidden{
-    display:none;
+    display:none !important;
 }
 
 textarea::-moz-selection,
@@ -17,10 +17,6 @@ textarea::selection {
     background: white;
 }
 
-button{
-    margin: 10px 0 0 20px;
-}
-
-input{
-    margin: 10px 0 0 20px;
+.form-grabber{
+    margin: 20px 0 30px 0px;
 }

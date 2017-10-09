@@ -9,11 +9,17 @@
 </head>
 
 <body>
-    <button class="js-back-main">На главную</button></br>
-    <input type="text" name="grabber-val" value="">
-    <button class="js-run-brab">Грабб</button>
-    </br>
-    <button type="button" class="js-save-temp hidden">Сохранить</button>
+    <div class="ui buttons">
+        <button class="js-back-main ui button">На главную</button></br>
+    </div>
+    <div class="ui form-grabber form">
+        <div class="field">
+            <label>Введите url страницы</label>
+            <input type="text" name="grabber-val" placeholder="page URL">
+        </div>
+        <button class="js-run-brab inverted ui button orange">Грабб</button>
+        <button class="js-save-temp hidden ui button green">Сохранить</button>
+    </div>
     <table class="js-table-res ui celled table">
         <thead>
             <tr>
