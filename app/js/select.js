@@ -7,13 +7,28 @@ window.semantic = require('semantic-ui/dist/semantic');
 var main = remote.require('./index.js');
 const GLOBAL = remote.getGlobal('apps');
 
+let $popupDelete = $('.js-popup-confirm-delete'),
+    $popupDeleteStatus = $popupDelete.find('.header');
+
+const STORE = {
+    $tr: null,
+    fileForDel: null
+}
+
+
+function showConfirmPopup($popup, msg, filepath){
+    if(!$popup.modal) throw new TypeError('Selector does not a modal');
+    $popup.find('.header').text(msg);
+    $popup.modal('show');
+    STORE.fileForDel = filepath;
+}
+
 function refreshTable(that){
-    let $tr = that.closest('tr');
-    $tr.remove();
+    STORE.$tr && STORE.$tr.remove();
 }
 
 function delOrEdit(that, command, callback){
-    let link = that.closest('tr').data('file');
+    let link = typeof that == 'string' ? that : that.closest('tr').data('file');
 
     if(command == 'edit'){
         let temp = fs.readFileSync(link, 'utf8');
@@ -60,8 +75,17 @@ $('.js-run').on('click', ()=>{
     $('.js-table-res').append(`<tbody>${html}</tbody>`);
 });
 
+$popupDelete.modal('setting', {
+    onApprove: obj => {
+        delOrEdit(STORE.fileForDel, 'del', refreshTable);
+    }
+})
+
 $('.js-table-res').on('click', '.js-file-delete', function(e){
-    delOrEdit($(this), 'del', refreshTable);
+    let filename = $(this).closest('tr').data('file');
+    let filenameParse = path.parse(filename);
+    STORE.$tr = $(this).closest('tr');
+    showConfirmPopup($popupDelete, `Вы уверены, что хотите удалить ${filenameParse.name}${filenameParse.ext}`, filename);
 });
 
 $('.js-table-res').on('click', '.js-file-edit', function(e){

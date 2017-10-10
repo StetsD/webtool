@@ -14,5 +14,9 @@
     "asar": "^0.13.0",
     "electron": "1.7.8",
     "electron-packager": "^9.1.0"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "semantic-ui": "^2.2.13"
   }
 }

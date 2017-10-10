@@ -7,6 +7,11 @@ window.jQuery = window.$ = require('jquery');
 window.semantic = require('semantic-ui/dist/semantic');
 var main = remote.require('./index.js');
 const GLOBAL = remote.getGlobal('apps');
+const ModalStatus = require('./js/modules/modal.status.js');
+
+let modalStatus = new ModalStatus({
+    $elem: $('.js-modal-status')
+});
 
 let $editor = $('.js-grab-editor'),
     $urlGrabber = $('[name="grabber-val"]'),
@@ -42,9 +47,13 @@ $btnSave.on('click', ()=>{
         const FILE = path.parse(file);
         let {name, ext} = FILE;
         fs.writeFile(file, $editor.val(), 'utf8', (err)=>{
-            if(err) throw err;
-            console.log('success')
+            if(err){
+                modalStatus.addStatus(err);
+                throw err;
+            }
+            modalStatus.addStatus('Файл успешно сохранён');
         });
+        modalStatus.show();
     });
 });
 
